@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://coulj405tse8y"]
+
+[ext_resource type="Script" path="res://scripts/cursor_manager.gd" id="1_83wml"]
+
+[node name="Cursor" type="CanvasLayer"]
+layer = 127
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_83wml")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]

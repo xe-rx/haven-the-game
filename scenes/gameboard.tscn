@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://bnou3cpabg353"]
+
+[ext_resource type="Script" path="res://scripts/GameState.gd" id="1_5ybdi"]
+[ext_resource type="Texture2D" uid="uid://dksi7klashbrv" path="res://assets/sprites/custom/tileset.png" id="1_e6uui"]
+[ext_resource type="Script" path="res://scripts/BoardModel.gd" id="1_tu7s0"]
+[ext_resource type="Script" path="res://scripts/BoardView.gd" id="2_ijf63"]
+[ext_resource type="Script" path="res://scripts/tutorial_controller.gd" id="6_aka7l"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yu4mf"]
+texture = ExtResource("1_e6uui")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_g7dgr"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_yu4mf")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GameState" type="Node" parent="."]
+script = ExtResource("1_5ybdi")
+
+[node name="BoardModel" type="Node" parent="."]
+script = ExtResource("1_tu7s0")
+initial_pop_s = 25
+initial_pop_m = 20
+initial_pop_l = 10
+initial_food = 40
+initial_medics = 18
+initial_roofs = 35
+first_reveal_cap = 40
+
+[node name="BoardView" type="TileMap" parent="."]
+texture_filter = 1
+tile_set = SubResource("TileSet_g7dgr")
+format = 2
+layer_0/name = "base"
+layer_1/name = "overlay"
+script = ExtResource("2_ijf63")
+model_path = NodePath("../BoardModel")
+game_state_path = NodePath("../GameState")
+
+[node name="TutorialController" type="Node" parent="."]
+script = ExtResource("6_aka7l")

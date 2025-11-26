@@ -1,0 +1,25 @@
+# Godot-specific ignores
+.export/
+.godot/
+
+# Mono C# builds (if using C#)
+.mono/
+*.csproj
+*.sln
+*.user
+*.vs/
+obj/
+bin/
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Backup files
+*~
+

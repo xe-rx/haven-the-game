@@ -1,0 +1,392 @@
+[gd_scene load_steps=24 format=3 uid="uid://70f1sovh0lp2"]
+
+[ext_resource type="PackedScene" uid="uid://bnou3cpabg353" path="res://scenes/gameboard.tscn" id="1_mbflm"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_qx0im"]
+[ext_resource type="PackedScene" uid="uid://fxky3caaov1u" path="res://scenes/home.tscn" id="2_f05hu"]
+[ext_resource type="Script" path="res://scripts/left_sidebar_vbox.gd" id="3_kdulm"]
+[ext_resource type="FontFile" uid="uid://dgrdel20hqxke" path="res://assets/fonts/Gamer.ttf" id="4_m1gde"]
+[ext_resource type="Texture2D" uid="uid://do42ijcywlx1q" path="res://assets/sprites/icons/population.png" id="4_vdt5e"]
+[ext_resource type="Texture2D" uid="uid://co2krweoh1r6k" path="res://assets/sprites/icons/food.png" id="5_bl5fb"]
+[ext_resource type="Texture2D" uid="uid://ceqovj72gop1d" path="res://assets/sprites/icons/book.png" id="5_d8msl"]
+[ext_resource type="AudioStream" uid="uid://dylciot7mrw4v" path="res://assets/audio/crtsound.mp3" id="5_jo7sx"]
+[ext_resource type="Texture2D" uid="uid://xxyqxjdtg7bd" path="res://assets/sprites/icons/house.png" id="6_8nwar"]
+[ext_resource type="Texture2D" uid="uid://bi8p5ggmiwndp" path="res://assets/sprites/icons/medic.png" id="7_4id5w"]
+[ext_resource type="Shader" path="res://shaders/crt.gdshader" id="11_lcn7t"]
+[ext_resource type="Script" path="res://scripts/tooltip.gd" id="13_bic20"]
+[ext_resource type="AudioStream" uid="uid://cs5yldj6e41ok" path="res://assets/audio/virus.wav" id="13_h4kg1"]
+[ext_resource type="Shader" path="res://shaders/chromakey.gdshader" id="13_vmvln"]
+[ext_resource type="VideoStream" path="res://assets/video/aspose_video_134080846977401604_out.ogv" id="14_pkc2g"]
+[ext_resource type="AudioStream" uid="uid://ccryjlo25gwes" path="res://assets/audio/reveal.mp3" id="15_3kjnn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y55g4"]
+bg_color = Color(0.164, 0.2, 0.1778, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_htnya"]
+font = ExtResource("4_m1gde")
+font_size = 56
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2qxx"]
+bg_color = Color(0.0862745, 0.0901961, 0.101961, 1)
+border_width_left = 6
+border_width_top = 6
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r8jod"]
+shader = ExtResource("13_vmvln")
+shader_parameter/key_color = Color(0, 1, 0, 1)
+shader_parameter/threshold = 0.4
+shader_parameter/softness = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qljux"]
+shader = ExtResource("11_lcn7t")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 4.0
+shader_parameter/roll_size = 17.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.01
+shader_parameter/noise_opacity = 0.08
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.1
+shader_parameter/aberration = 0.00800005
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.7
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_k0q3k"]
+lightmap_size_hint = Vector2i(6402, 3602)
+size = Vector2(1280, 720)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qx0im")
+home_screen_scene = ExtResource("2_f05hu")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(960, 512)
+layout_mode = 2
+offset_right = 1280.0
+offset_bottom = 720.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y55g4")
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer"]
+layout_mode = 2
+script = ExtResource("3_kdulm")
+gameboard_path = NodePath("AspectRatioContainer/SubViewportContainer/SubViewport/gameboard")
+tooltip_path = NodePath("../../../Tooltips/Tooltip")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelDate" type="Label" parent="Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_m1gde")
+theme_override_font_sizes/font_size = 78
+text = "JAN 25"
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1080, 540)
+layout_mode = 2
+ratio = 2.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Panel/CenterContainer/VBoxContainer/AspectRatioContainer"]
+unique_name_in_owner = true
+z_index = -1
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Panel/CenterContainer/VBoxContainer/AspectRatioContainer/SubViewportContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+fsr_sharpness = 2.0
+size = Vector2i(1080, 540)
+render_target_update_mode = 4
+
+[node name="gameboard" parent="Panel/CenterContainer/VBoxContainer/AspectRatioContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_mbflm")]
+unique_name_in_owner = true
+scale = Vector2(1.125, 1.125)
+
+[node name="LeftSideBox" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxPopulation" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="TexturePopulation" type="TextureRect" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox/HBoxPopulation"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_vdt5e")
+stretch_mode = 5
+
+[node name="LabelPopulation" type="Label" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox/HBoxPopulation"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.105882, 0.737255, 0.407843, 1)
+text = "299"
+label_settings = SubResource("LabelSettings_htnya")
+
+[node name="HBoxFood" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_horizontal = 5
+theme_override_constants/separation = 6
+
+[node name="TextureFood" type="TextureRect" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox/HBoxFood"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("5_bl5fb")
+stretch_mode = 5
+
+[node name="LabelFood" type="Label" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox/HBoxFood"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.105882, 0.737255, 0.407843, 1)
+text = "159232"
+label_settings = SubResource("LabelSettings_htnya")
+
+[node name="HBoxHousing" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_horizontal = 5
+theme_override_constants/separation = 6
+
+[node name="TextureHousing" type="TextureRect" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox/HBoxHousing"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("6_8nwar")
+stretch_mode = 5
+
+[node name="LabelHousing" type="Label" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox/HBoxHousing"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.105882, 0.737255, 0.407843, 1)
+text = "108"
+label_settings = SubResource("LabelSettings_htnya")
+
+[node name="HBoxMedic" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_horizontal = 5
+theme_override_constants/separation = 6
+
+[node name="TextureMedic" type="TextureRect" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox/HBoxMedic"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("7_4id5w")
+stretch_mode = 5
+
+[node name="LabelMedic" type="Label" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox/HBoxMedic"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.105882, 0.737255, 0.407843, 1)
+text = "7"
+label_settings = SubResource("LabelSettings_htnya")
+
+[node name="Control" type="Control" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_right = 15
+
+[node name="TextureInfo" type="TextureRect" parent="Panel/CenterContainer/VBoxContainer/LeftSideBox/MarginContainer"]
+unique_name_in_owner = true
+z_index = 100
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture = ExtResource("5_d8msl")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="CRT" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("5_jo7sx")
+volume_db = 4.0
+autoplay = true
+
+[node name="SFXClick" type="AudioStreamPlayer" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("15_3kjnn")
+volume_db = -3.0
+
+[node name="SFXVirus" type="AudioStreamPlayer" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("13_h4kg1")
+
+[node name="Tooltips" type="CanvasLayer" parent="."]
+
+[node name="Tooltip" type="PanelContainer" parent="Tooltips"]
+offset_top = -162.0
+offset_right = 463.0
+offset_bottom = -1.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a2qxx")
+script = ExtResource("13_bic20")
+
+[node name="Content" type="RichTextLabel" parent="Tooltips/Tooltip"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("4_m1gde")
+theme_override_fonts/mono_font = ExtResource("4_m1gde")
+theme_override_fonts/italics_font = ExtResource("4_m1gde")
+theme_override_fonts/bold_italics_font = ExtResource("4_m1gde")
+theme_override_fonts/bold_font = ExtResource("4_m1gde")
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "[img]res://assets/sprites/icons/population.png[/img] [b]Population[/b]
+
+This is your current population count, be careful, your population requires food, housing and medics to survive overtime."
+fit_content = true
+
+[node name="LayerTutorial" type="CanvasLayer" parent="."]
+
+[node name="InfoTooltip" type="PanelContainer" parent="LayerTutorial"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -250.0
+offset_right = 350.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a2qxx")
+
+[node name="MarginContainer" type="MarginContainer" parent="LayerTutorial/InfoTooltip"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LayerTutorial/InfoTooltip/MarginContainer"]
+layout_mode = 2
+
+[node name="CloseInfo" type="Button" parent="LayerTutorial/InfoTooltip/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.211765, 0.678431, 0.439216, 1)
+theme_override_colors/font_pressed_color = Color(0.211765, 0.678431, 0.439216, 1)
+theme_override_fonts/font = ExtResource("4_m1gde")
+theme_override_font_sizes/font_size = 42
+text = "CLOSE"
+flat = true
+
+[node name="ContentInfo" type="RichTextLabel" parent="LayerTutorial/InfoTooltip/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 480)
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("4_m1gde")
+theme_override_fonts/mono_font = ExtResource("4_m1gde")
+theme_override_fonts/italics_font = ExtResource("4_m1gde")
+theme_override_fonts/bold_italics_font = ExtResource("4_m1gde")
+theme_override_fonts/bold_font = ExtResource("4_m1gde")
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "
+Explore the world by revealing tiles adjactent to your settlement!
+
+[u]Flag[/u]
+You can flag unrevealed tiles by rightclicking, these tiles can't be revealed until you unflag them.
+
+[img]res://assets/sprites/icons/calender.png[/img] [u]Time[/u]
+Careful, time passes! Each tile collected, manually or automatically takes a day.
+
+[img]res://assets/sprites/icons/population.png[/img] [u]Population[/u]
+This is your current population count, complete the game by clearing all squares with as large of a population as possible! Note: population collects itself automatically upon discovery.
+
+[img]res://assets/sprites/icons/food.png[/img] [u]Food[/u]
+Food keeps your population alive! Your population each consumes 1 food each day, Each food tile has a chance of containing 300-500 food.
+
+[img]res://assets/sprites/icons/virus.png[/img] [u][color=#ad3636]Virus[/color][/u]
+Virus tiles target your population! Make sure you have enough medics to protect your population. Each person unprotected will die the next day. [u]Each utilized medic will leave the settlement after doing their job[/u].
+
+[img]res://assets/sprites/icons/medic.png[/img] [u]Medics[/u]
+Medics keep your population healthy! Each medic can cover at most 100 people out of the population. Medic tiles are highlighted slightly green.
+
+[img]res://assets/sprites/icons/house.png[/img] [u]Housing[/u]
+You need houses to take on refugees as part of your population. Any refugees who can't find a roof over their head in your settlement will look for a place elsewhere and leave!"
+
+[node name="LayerGameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="Greenscreen" type="ColorRect" parent="LayerGameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="GameOverVideo" type="VideoStreamPlayer" parent="LayerGameOver"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_r8jod")
+offset_right = 1280.0
+offset_bottom = 720.0
+stream = ExtResource("14_pkc2g")
+volume_db = -3.0
+expand = true
+
+[node name="LayerCRT" type="CanvasLayer" parent="."]
+layer = 128
+offset = Vector2(630, 450)
+transform = Transform2D(1, 0, 0, 1, 630, 450)
+
+[node name="CRTEffect" type="MeshInstance2D" parent="LayerCRT"]
+z_index = -10
+material = SubResource("ShaderMaterial_qljux")
+position = Vector2(10, -90)
+mesh = SubResource("QuadMesh_k0q3k")

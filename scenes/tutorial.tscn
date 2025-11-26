@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://3iujf2k7u18v"]
+
+[ext_resource type="FontFile" uid="uid://dgrdel20hqxke" path="res://assets/fonts/Gamer.ttf" id="1_iu8ey"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Content" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 680.0
+offset_bottom = 380.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.94, 0.94, 0.94, 1)
+theme_override_fonts/normal_font = ExtResource("1_iu8ey")
+theme_override_fonts/mono_font = ExtResource("1_iu8ey")
+theme_override_fonts/italics_font = ExtResource("1_iu8ey")
+theme_override_fonts/bold_italics_font = ExtResource("1_iu8ey")
+theme_override_fonts/bold_font = ExtResource("1_iu8ey")
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[u]FLAGGING TILES[/u]
+
+You can flag squares by pressing [u]right click[/u].
+Flagged squares can't be revealed until they are unflagged.
+
+Try flagging and unflagging this tile!
+"
+fit_content = true
+
+[node name="Continue" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -368.0
+offset_top = -101.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.756863, 0.8, 0.670588, 1)
+theme_override_fonts/font = ExtResource("1_iu8ey")
+theme_override_font_sizes/font_size = 96
+text = ">CONTINUE"
+flat = true

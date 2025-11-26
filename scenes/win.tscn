@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://bts6lfcefhmd3"]
+
+[ext_resource type="FontFile" uid="uid://dgrdel20hqxke" path="res://assets/fonts/Gamer.ttf" id="1_f7xkm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6gfe"]
+bg_color = Color(0.164706, 0.2, 0.176471, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m6gfe")
+
+[node name="Title" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -377.0
+offset_top = -232.0
+offset_right = 400.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_f7xkm")
+theme_override_fonts/mono_font = ExtResource("1_f7xkm")
+theme_override_fonts/italics_font = ExtResource("1_f7xkm")
+theme_override_fonts/bold_italics_font = ExtResource("1_f7xkm")
+theme_override_fonts/bold_font = ExtResource("1_f7xkm")
+theme_override_font_sizes/bold_italics_font_size = 248
+theme_override_font_sizes/italics_font_size = 248
+theme_override_font_sizes/mono_font_size = 248
+theme_override_font_sizes/normal_font_size = 248
+theme_override_font_sizes/bold_font_size = 128
+bbcode_enabled = true
+text = "CONGRATS"
+fit_content = true
+scroll_active = false
+
+[node name="ContentInfo" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 265.0
+offset_top = 296.0
+offset_right = 1100.0
+offset_bottom = 326.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("1_f7xkm")
+theme_override_fonts/mono_font = ExtResource("1_f7xkm")
+theme_override_fonts/italics_font = ExtResource("1_f7xkm")
+theme_override_fonts/bold_italics_font = ExtResource("1_f7xkm")
+theme_override_fonts/bold_font = ExtResource("1_f7xkm")
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "You completed the game with %d population."
+
+[node name="Return" type="Button" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 574.0
+offset_top = 382.0
+offset_right = 734.0
+offset_bottom = 441.0
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.211765, 0.678431, 0.439216, 1)
+theme_override_colors/font_pressed_color = Color(0.211765, 0.678431, 0.439216, 1)
+theme_override_fonts/font = ExtResource("1_f7xkm")
+theme_override_font_sizes/font_size = 64
+text = "RETURN"
+flat = true

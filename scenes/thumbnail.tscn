@@ -1,0 +1,107 @@
+[gd_scene load_steps=7 format=3 uid="uid://bl6r5ox8gept2"]
+
+[ext_resource type="Texture2D" uid="uid://bjk6vqxmat87t" path="res://assets/sprites/imported/parallax-industrial-anim_x2_0.png" id="1_1gh8u"]
+[ext_resource type="FontFile" uid="uid://dgrdel20hqxke" path="res://assets/fonts/Gamer.ttf" id="2_aauyj"]
+[ext_resource type="Shader" path="res://shaders/crt.gdshader" id="3_6sjs2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnsvu"]
+bg_color = Color(0.184314, 0.184314, 0.184314, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rrqh"]
+shader = ExtResource("3_6sjs2")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 4.0
+shader_parameter/roll_size = 17.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.01
+shader_parameter/noise_opacity = 0.08
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.1
+shader_parameter/aberration = 0.00800005
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.7
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_7tcut"]
+lightmap_size_hint = Vector2i(6402, 3602)
+size = Vector2(1280, 720)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mnsvu")
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1gh8u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -449.0
+offset_top = -283.0
+offset_right = 517.0
+offset_bottom = 283.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="RichTextLabel" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_aauyj")
+theme_override_fonts/mono_font = ExtResource("2_aauyj")
+theme_override_fonts/italics_font = ExtResource("2_aauyj")
+theme_override_fonts/bold_italics_font = ExtResource("2_aauyj")
+theme_override_fonts/bold_font = ExtResource("2_aauyj")
+theme_override_font_sizes/bold_italics_font_size = 496
+theme_override_font_sizes/italics_font_size = 496
+theme_override_font_sizes/mono_font_size = 496
+theme_override_font_sizes/normal_font_size = 496
+theme_override_font_sizes/bold_font_size = 496
+bbcode_enabled = true
+text = "HAVEN"
+fit_content = true
+scroll_active = false
+
+[node name="LayerCRT" type="CanvasLayer" parent="Panel"]
+layer = 128
+offset = Vector2(630, 450)
+transform = Transform2D(1, 0, 0, 1, 630, 450)
+
+[node name="CRTEffect" type="MeshInstance2D" parent="Panel/LayerCRT"]
+z_index = -10
+material = SubResource("ShaderMaterial_4rrqh")
+position = Vector2(10, -90)
+mesh = SubResource("QuadMesh_7tcut")
